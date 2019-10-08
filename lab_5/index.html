@@ -32,8 +32,6 @@
     </div>
   </div>
   <script>
-    function clickMeFunction(){
-    }
     /* N.B. - For your lab, use the variable "countries" now available on the window space */
     const countries = [
       { "name": "Afghanistan", "code": "AF" },
@@ -281,7 +279,15 @@
       { "name": "Zimbabwe", "code": "ZW" }
     ]
     console.log("List of countries in the world", countries);
+    function clickMeFunction(){
+      
+    }
     sessionStorage.setItem("code", JSON.stringify(countries));
+    const code = sessionStorage.getItem("code");
+    const country_name = JSON.parse(code);
+    console.log(country_name.name);
+
+
   </script>
 </body>
 
