@@ -279,17 +279,27 @@
       { "name": "Zimbabwe", "code": "ZW" }
     ]
     console.log("List of countries in the world", countries);
-    function clickMeFunction(){
-      return countries[Math.floor(Math.random()*countires.length)];
-      
-    }
-    sessionStorage.setItem("code", JSON.stringify(countries));
-    const code = sessionStorage.getItem("code");
-    const country_name = JSON.parse(code);
-    console.log(country_name.name);
+    sessionStorage.setItem("name", JSON.stringify(countries));
 
+    function clickMeFunction(countries){
+      const str = sessionStorage.getItem("name");
+      const data = JSON.parse(str);
+      var arrayList = data;
+      var ul = document.querySelector("ul");
+
+      for (var i = 0; i < 51; i++){
+        var list=arrayList.name[i];
+
+        var listItems = document.createElement("li")
+        listItems.textContent;
+      }
+
+    }
 
   </script>
 </body>
 
 </html>
+
+
+
