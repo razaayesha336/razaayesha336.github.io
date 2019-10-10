@@ -10,7 +10,7 @@
       <div class="wrapper">
         <div class="header">Test JSON page</div>
         <!-- <button class="button" onclick="loadData()">Load Some JSON</button> -->
-        <button class="button" onclick= "clickMeFunction();">
+        <button class="button" onclick = clickMeFunction();>
           Click me to replace list entries
         </button>
         <div class="content">
@@ -283,27 +283,26 @@
         { name: "Zimbabwe", code: "ZW" }
       ];
       console.log("List of countries in the world", countries);
-      sessionStorage.setItem("name", JSON.stringify(countries));
+     var li_items = document.getElementsByTagName("li");
+     var ol_items = document.getElementById('list');
+     function clickMeFunction(){
+       for (i = 0; i < countries.length; i +=1){
+         var x = (Math.round(Math.random() * 243));
+         if (i == 50){
+           break
+         }
+         if (i < 5){
+           li_items[i + 4].innerHTML = countries[x].name;
 
-      function clickMeFunction(countries) {
-        const str = sessionStorage.getItem("name");
-        const data = JSON.parse(str);
-        var arrayList = data;
-        var ul = document.querySelector("ul");
-
-        for (var i = 0; i < 51; i++) {
-          var list = arrayList.name[i];
-
-          var listItems = document.createElement("li");
-          listItems.textContent;
-        }
-        console.log(clickMeFunction(countries));
-      }
-
-      function random_item(countries) {
-        return countries[Math.floor(Math.random() * countries.length)];
-      }
-      console.log(random_item(countries));
+         }
+         if (i > 4) {
+           var li = document.createElement('li');
+           var txt = documen.createTextMode(countries[x].name);
+           li.appendChild(txt);
+           ol_items.appendChild(li_)
+         }
+       }
+     }
     </script>
   </body>
 </html>
