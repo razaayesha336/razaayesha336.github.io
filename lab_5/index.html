@@ -284,14 +284,13 @@
       { name: "Zimbabwe", code: "ZW" }
     ];
     console.log("List of countries in the world", countries);
-    sessionStorage.setItem('array_list', JSON.stringify(countries));
+    sessionStorage.setItem('countries_array', JSON.stringify(countries));
 
     // const el = document.querySelector('button');
 
     function clickMeFunction() {
-      const json = sessionStorage.getItem('array_list');
+      const json = sessionStorage.getItem('countries_array');
       const list = JSON.parse(json);
-      //i for items
       const nameArray = list.map((items) => items.name);
 
       // This will get the unique values each time
@@ -301,7 +300,6 @@
      const uniqueNames = countries.filter(unique)
      console.log(uniqueNames);
      
-
       const instructions = document.querySelector('.instructions');
       instructions.innerHTML = '';
 
