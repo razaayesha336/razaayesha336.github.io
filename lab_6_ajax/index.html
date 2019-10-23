@@ -25,12 +25,17 @@
         .then(res => res.json())
         .then(res => res.map(c => c.name))
         .then(names => {
+
+        fetch('ajax_sample.json')
+        .then(res => res.json())
+        .then(res => res.map(c => c.code))
+        .then(code => {
           const content = document.querySelector('.orderList');
           content.innerText = '';
           for (let i = 0; i < 15; i++) {
             const selectNumber = getRandomIntInclusive(0, 242);
             let element = document.createElement("li");
-            element.innerText = names[selectNumber];
+            element.innerText = names[selectNumber] + ", " + code[selectNumber];
             content.appendChild(element);
           }
           //The maximum is inclusive and the minimum is inclusive 
@@ -39,8 +44,7 @@
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min + 1)) + min;
           }
-
-        })
+        })});
     }
   </script>
 </body>
