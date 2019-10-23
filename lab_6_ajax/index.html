@@ -11,16 +11,36 @@
     <div class="wrapper">
       <div class="header">Test AJAX page</div>
       <button class="button" onclick="loadData()">Load Some JSON</button>
-      <div class="content"></div>
+      <div class="content">
+        <ol class = "orderList">
+        </ol>
+      </div>
       <div class="footer"></div>
     </div>
-  </div>
-  <script>
+ </div>
+  
+<script>
     function loadData() {
       fetch('ajax_sample.json')
         .then(res => res.json())
-        .then(res => res.map(c => c.code))
-        .then(codes => document.querySelector(".content").innerText = codes);
+        .then(res => res.map(c => c.name))
+        .then(names => {
+          const content = document.querySelector('.orderList');
+          content.innerText = '';
+          for (let i = 0; i < 15; i++) {
+            const selectNumber = getRandomIntInclusive(0, 242);
+            let element = document.createElement("li");
+            element.innerText = names[selectNumber];
+            content.appendChild(element);
+          }
+          //The maximum is inclusive and the minimum is inclusive 
+          function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+          }
+
+        })
     }
   </script>
 </body>
