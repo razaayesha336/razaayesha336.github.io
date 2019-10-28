@@ -11,21 +11,31 @@
     <div class="wrapper">
       <div class="header">UMD Bus Routes</div>
       <button class="button" onclick="loadData()">Load Some JSON</button>
-      <div class="content"></div>
+      <div class="content">
+        <ol class = "orderList">
+        </ol>
+      </div>
       <div class="footer"></div>
     </div>
   </div>
   <script>
     function loadData() {
-      fetch('ajax_sample.json')
+      fetch("https://api.umd.io/v0/bus/routes")
         .then(res => res.json())
-        .then(res => {
-          // you can now work in this area
-
-          return res;
+        .then(res => res.map(t => t.title + " " + t.route_id))
+        .then(titles => {
+          const content = document.querySelector('.orderList');
+           content.innerText = '';
+          for (let i = 0; i < title.length; i++) {
+            let element = document.createElement("li");
+            element.innerText = titles[i] + ", " + titles[i];
+            content.appendChild(element);
+          }
+          return titles;
         })
         .then(data => document.querySelector(".content").innerText = data);
     }
+    
   </script>
 </body>
 
