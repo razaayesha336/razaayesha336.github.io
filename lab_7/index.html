@@ -12,8 +12,7 @@
       <div class="header">UMD Bus Routes</div>
       <button class="button" onclick="loadData()">Load Some JSON</button>
       <div class="content">
-        <ol class = "orderList">
-        </ol>
+        <ul></ul>
       </div>
       <div class="footer"></div>
     </div>
@@ -22,20 +21,33 @@
     function loadData() {
       fetch("https://api.umd.io/v0/bus/routes")
         .then(res => res.json())
-        .then(res => res.map(t => t.title + " " + t.route_id))
-        .then(titles => {
-          const content = document.querySelector('.orderList');
-           content.innerText = '';
-          for (let i = 0; i < title.length; i++) {
-            let element = document.createElement("li");
-            element.innerText = titles[i] + ", " + titles[i];
-            content.appendChild(element);
+        .then(routes => {
+          // you can now work in this area
+          console.log(routes);
+          let text = "<ul>";
+          let num = 0;
+          let str = "Code:"
+          for (i = 0; i < routes.length; i++) {
+            text +=
+              "<li>" + routes[i].title + ",  " + str.bold() + routes[i].route_id + "</li>";
           }
-          return titles;
+          text += "</ul>";
+          document.getElementsByTagName("ul")[0].innerHTML = text;
+          return routes;
         })
-        .then(data => document.querySelector(".content").innerText = data);
+        .then(res => res)
+        .then(res => {
+          nameOfBusRoute = res.find(({ route_id }) => route_id = "127");
+          console.log(nameOfBusRoute);
+          document.getElementsByTagName("div")[2].innerHTML =
+            "UMD Bus route" + " " + nameOfBusRoute.title;
+          return nameOfBusRoute;
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
-    
+
   </script>
 </body>
 
