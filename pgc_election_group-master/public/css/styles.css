@@ -73,7 +73,15 @@ h3 {
   padding: 10px;
   overflow-wrap: break-word;
   margin: 25px 50px;
-  max-width: 450px;
+  max-width: 400px;
+  max-height: 500px;
+  overflow:auto;
+  display: flex;
+  flex-direction: column;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
 }
 
 .button {
@@ -102,18 +110,60 @@ h3 {
   top: 1px;
 }
 
-#table {
-  display: flex;
-  justify-content: center;
-  height: 250px;
-  overflow: scroll;
+.scroll {
+  display: grid;
+  grid-gap: 10%;
+  grid-template-columns: repeat(15%);
+  grid-template-rows: repeat(5%);
+  width: 90%;
 }
 
- #tab_head{
-   cursor: pointer;
+thead{
+  display: block;
+  cursor: pointer;
+}
+
+thead tr {
+  display:flex;
+  justify-content: space-around;
+}
+
+tbody {
+  display: flex;
+  height: 400px;
+  width: auto;
+  flex-direction: column;
+  column-count: 5;
+  overflow: auto;
+}
+
+tbody tr {
+  display:flex;
+  justify-content: space-around;
+  height:10%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+td:nth-child(1), th:nth-child(1) { width: 7%; display: flex; justify-content: center;}
+td:nth-child(2), th:nth-child(2) { width: 30%; min-width: 10%;}
+td:nth-child(3), th:nth-child(3) { width: 30%; min-width: 10%;}
+td:nth-child(4), th:nth-child(4) { width: 10%; display: flex; justify-content: center;}
+td:nth-child(5), th:nth-child(5) { width: 10%; display: flex; justify-content: center;}
+
+tbody tr td{
+  display: flex;
+  justify-content: left;
+  align-content: center;
+}
+
+.content a, button, innerText {
+  font-size: 110%
 }
 
 iframe{
+  padding-top:7.5%;
+  padding-bottom: 5%;
 	border:none;
 	display: block;
 	margin: 0px auto 25px auto;
