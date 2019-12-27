@@ -1,44 +1,325 @@
 <!doctype html>
 <html lang = "en-US">
 <head>
-  <meta charset = "utf-8" content = ”width=device-width, initial-scale=1″>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
   <title> PGC Voter Info Project</title>
-  <meta name = "Tamia Green, Joshua May, Tony Persaud, Ayesha Raza, Lorraine Siochi" content = "Group Project for INST 377">
-  <link rel  = "stylesheet" href  = "css/styles.css">
+  <meta name = "Tamia Green, Joshua May, Tony Persaud, Ayesha Raza,
+  Lorraine Siochi" content = "Group Project for INST 377">
+  <link rel = "stylesheet" href  = "css/styles.css">
+  <link rel="shortcut icon" type="image/x-icon" href="img/PJ_flag.png" />
   <script src="js/script.js"></script>
 </head>
 <body>
-  <div class="container">
-    <div class="wrapper">
-      <div class="header">PGC Election Hub</div>
-      <button class="button" onclick="loadData()">View Generic Ballot</button>
-      <div class="content"></div>
-      <div class="scroll">
-        <input type="text" id="filter" onkeyup="table_search()" placeholder="Search for polling place"></input>
-        <table class="fixed" id="table">
-          <thead>
-            <tr>
-              <th onclick="JSONtable('/s1', '0')">Dist/Prec</th>
-              <th onclick="JSONtable('/s3', '1')">Polling Place</th>
-              <th onclick="JSONtable('/s5', '2')">Address</th>
-              <th onclick="JSONtable('/s7', '3')">Zip</th>
-              <th onclick="JSONtable('/s9', '4')">Ballot</th>
-            </tr>
-          </thead>
-          <tbody id="body">
-            <script>console.log(JSONtable("/s1", '0'))</script>
-          </tbody>
-        </table>
-      </div>
-      <div class="sim-intro" rel = "stylesheet" href = "css/index.css">
-        <p class="caption">
-        <iframe src="election.html" width="320" height="460" scrolling="no"></iframe>
-        <div class="box" id="thanks"> <a href = "https://ncase.me/ballot/"
-          title="Click here for more voting visualizations and information">
-          Thanks to ncase and company who made the
-          box seen above an open and amazing resource </a><div>
-      </div>
-      <div class="footer"></div>
+
+  <!-- Sidebar/menu -->
+  <nav class="w3-sidebar w3-collapse w3-top w3-large w3-padding" id="mySidebar"><br>
+    <a href="javascript:void(0)" onclick="closeNav()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+
+    <div class="w3-container">
+      <a href="https://www.princegeorgescountymd.gov/"><img src="img/PJ_flag.png"
+      title="Seal of Prince George's County Maryland"></a>
+      <h3 class="w3-padding-26"><b>PGC<br>Election Hub</b></h3>
     </div>
+
+    <div class="w3-bar-block">
+      <a href="#" onclick="closeNav()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+      <a href="#about" onclick="closeNav()" class="w3-bar-item w3-button w3-hover-white">About</a>
+      <a href="#ballot" onclick="closeNav()" class="w3-bar-item w3-button w3-hover-white">Ballot</a>
+      <a href="#electionSim" onclick="closeNav()" class="w3-bar-item w3-button w3-hover-white">Tools</a>
+      <a href="#documentation" onclick="closeNav()" class="w3-bar-item w3-button w3-hover-white">Documentation</a>
+      <a href="#contributors" onclick="closeNav()" class="w3-bar-item w3-button w3-hover-white">Contributors</a>
+      <a href="#references" onclick="closeNav()" class="w3-bar-item w3-button w3-hover-white">References</a>
+      <a href="#navInfo" onclick="closeNav()" class="w3-bar-item w3-button w3-hover-white">Navigation Help</a>
+      <p> <i>Polls close in...</i> </p>
+      <div id="clock"></div>
+    </div>
+
+  </nav>
+
+  <!-- Top menu on small screens -->
+  <header class="w3-container w3-top w3-hide-large w3-xlarge w3-padding" id="topBar">
+    <a href="javascript:void(0)" class="w3-button w3-margin-right" onclick="openNav()">☰</a>
+    <span>PGC Election Hub</span>
+  </header>
+
+  <!-- Overlay effect when opening sidebar on small screens -->
+  <div class="w3-overlay w3-hide-large" onclick="closeNav()" style="cursor:pointer" title="Close Side Menu" id="myOverlay"></div>
+
+  <!--START OF PAGE CONTENT-->
+  <div class="main">
+    <!--Header-->
+    <h1 id="title" alt="View our slideshow here">
+      <a href="http://pgcelection.herokuapp.com/pdf/Final%20Presentation.pdf">
+        <b>Prince George's County Election Hub (Presentation)</b>
+      </a>
+    </h1>
+    <h2 alt="View our final project write-up here">
+      <a href="http://pgcelection.herokuapp.com/pdf/presentation_report.pdf">
+        <b>Information Project Report</b>
+      </a>
+    </h2>
+    <h3>
+        <a href="http://pgcelection.herokuapp.com/md/final.md">
+            <b>Read Me</b>
+        </a>
+    </h3>
+    <!--About-->
+    <div id="about">
+
+      <h1 class="sectionName"><b>About.</b></h1>
+      <hr class="sectionDivider">
+
+      <h2>What's the information problem?</h2>
+      <p>Even though the voting process is crucial to determining the leaders of our communities, states, and country; the voting turn out in most communities is under 50%.
+          Many people are not taught how the voting process and elections work. PGC Election Hub strives to address voting withing Prince George's County elections by educating voters about the voting process through an interactive sample ballot, simulations,
+          and candidate information all accessible in one place! </p>
+
+      <h2>Who can benefit from improvements?</h2>
+      <p>Any PG County citizens, ages 18 and up can benefit from this website. Additionally, we have found that young people between the ages of 18-29 make
+        up a large population of non-voters. We especially hope to reach young voters, since they have statiscally had lower voting turnouts.
+      </p>
+    </div>
+
+  <!--ballot-->
+  <div id="ballot">
+    <h1 class="sectionName"><a href="#ballotInfo"><b>Ballot.</b></a></h1>
+    <hr class="sectionDivider">
+    <div class="container">
+      <div class="wrapper">
+        <button class="button" id="trans" onclick="loadData(stringer('lang'))">
+          Haga clic para traducir la boleta al Español</button>
+        <div class="content"><script>loadData(stringer("lang"))</script></div>
+        <form  method="post">
+          <input type="text" id="streetNumber" placeholder="Street Number"></input>
+          <input type="text" id="streetName" placeholder="Street Name"></input>
+          <input type="text" id="zip" placeholder="Zip Code"></input>
+          <input type="submit" id="submit"></input>
+        </form>
+        <h1 class="sectionName"><a href="#tableInfo"><b>Polling Place Table & Search Box.</b></a></h1>
+        <hr class="sectionDivider">
+        <div class="scroll">
+          <input type="text" id="filter" onkeyup="table_search()"
+          placeholder="Search for polling place"></input>
+          <table class="fixed" id="table">
+            <thead>
+              <tr>
+                <th onclick='JSONtable(stringer("/s1"))'>Place</th>
+                <th onclick='JSONtable(stringer("/s3"))'>Address</th>
+                <th onclick='JSONtable(stringer("/s5"))'>City</th>
+                <th onclick='JSONtable(stringer("/s7"))'>Zip</th>
+              </tr>
+            </thead>
+            <tbody id="body">
+            <script>JSONtable(stringer("/s1"))</script></tbody>
+          </table>
+        </div>
+        <h1 class="sectionName"><a href="#toolInfo"><b>Election Simulator & Bubble-In Simulator.</b></a></h1>
+        <hr class="sectionDivider">
+        <div class="sim-intro" id="electionSim" rel = "stylesheet" href = "css/index.css">
+          <p class="caption">
+          <iframe src="election.html" width="320" height="500" scrolling="no"
+          title="election"></iframe>
+          <div class="box" id="thanks"> <a href = "https://ncase.me/ballot/"
+            title="Click here for more voting visualizations and information">
+            </a>
+          </div>
+        </div>
+        <h2><a href="#bubbleInfo"> Prepare for election day by practicing your bubble fill-in's with this interactive tool </a></h2>
+        <div id="sim-fill" class="sim-intro" rel = "stylesheet" href = "css/index.css">
+          <p class="caption">
+          <iframe src="pencil.html" width="320" height="490" marginwidth="35" scrolling="no"
+          title="pencil"></iframe>
+        </div>
+
+
+    <!--Documentaiton-->
+    <div id="documentation">
+      <h1 class="sectionName"><b>Documentation.</b></h1>
+      <hr class="sectionDivider">
+
+      <h1>User Manual</h1>
+        <p>This resource was created in order to aid in the process of
+          informing inexperienced and uneducated voters about the voting process.
+          Here, you can find a guide to the different parts of the website, that
+          will help orient you. Here are the specific functionalities you will
+          see on the site:
+        </p>
+        <ol>
+          <li>Navigation Bar</li>
+          <li>Ballot Candidate Table</li>
+          <li>Translation Button</li>
+          <li>Search Bar</li>
+          <li>Polling Places List</li>
+          <li>Vote Count Simulator</li>
+          <li>Ballot Bubble Simulator</li>
+        </ol>
+      <a href="javascript:void(0)" class="w3-button w3-margin-right"
+      onclick="openNav()"><h2 id="navInfo">Navigation Bar</h2>
+    </a>
+      <p>The navigation bar serves to help you find your way around the site.
+        You will see there are four sections to our navigation bar. These
+        sections are home, about, ballot, and documentation. Clicking "Home"
+        will take you to the top of our page. Clicking "About" will take you to
+        the about section of our website. This section will give you a better
+        idea of what our website's purpose is and who it is meant for. Clicking
+        "Ballot" will take you to the section of our website that holds all the
+        main functionalities of our website. You will be able to scroll through
+        and find the ballot candidate table, the translation button, the search
+        bar, the polling places list, the vote count simulator, and the ballot
+        bubble simulator. Finally, clicking "Documentation" will take you to the
+        part of our website with any instructions one would need to use the site.
+      </p>
+      <a href="#ballot" class="w3-bar-item w3-button w3-hover-white">
+        <h2 id="ballotInfo">Ballot Candidate Table</h2>
+      </a>
+        <p>In the Ballot Candidate table, you will find all of the candidates
+          running for office, as they would appear in the ballot. You will also
+          see their political party. You will see that they are separated by the
+          position that there are running for. You can scroll within this box
+          the same as you would for any page. You can click on some of the
+          elements in this box for more resources. For instance, you can click
+          on the position title, for information about what that position is and
+          what they do. You can also click on any candidate to navigate to that
+          candidate's page. You will also see a write in input box in this
+          section. This is meant to appear as it would on a real ballot, but it
+          is not meant to be submitted. At this point in time, link
+          functionality is not in place for the Spanish version of the ballot.
+          All ballot data contained on this site reflects the 2018 Gubernatorial
+          Ballot in the state of Maryland.
+        </p>
+        </a>
+      <h2><a href="#trans" title="Go to translation button"
+        class="w3-bar-item w3-button w3-hover-white">Translation Button</a></h2>
+      <p>The translation button allows you to see the candidate table in
+        spanish. This functionality is quite simple. You will see a button over
+        the ballot candidate table with the prompt, "Haga clic para traducir la
+        boleta al Español." Clicking this will allow you to see all of the
+        candidates and titles in spanish. Once translated to Spanish, the
+        button will appear with the text, "Click to translate ballot to English";
+        once clicked the ballot will revert to the English version.
+      </p>
+      <button class="button" id="reps" title="Translation button (go to section)">
+        <a href="#trans">Haga clic para traducir la boleta al Español</a>
+      </button>
+      <h2><a href="#filter" title="Go to table search box"
+        class="w3-bar-item w3-button w3-hover-white">Search Bar</a></h2>
+      <p>The search bar is meant to search through all of the polling places in
+        Prince George's County. If you know of a polling place in the county,
+        you can type it in to the search bar, and it will display all of the
+        relevant places in the search. If what you type in does not match a
+        polling place on the list, nothing will show up.
+      </p>
+      <h2 id="tableInfo"><a href="#table" title="Go to polling place table"
+      class="w3-bar-item w3-button w3-hover-white">Polling Places List</a></h2>
+      <p>The polling place lists all of the polling places available in Prince
+        George's county. Each place has a District/Precinct number, location
+        name, Address, City, Zip Code, and number of Ballots. As seen previously,
+        the polling places are searchable through the search bar above.
+        Additionally, the list is filterable. Clicking any of the headings at
+        the top of the list will give you a different filter. Clicking "Dist/Prec"
+        will list all of the places based on the district and precinct. Clicking
+        "Polling Place" will sort all of the places by name alphabetically.
+        Clicking "Address" will sort everything by address. Cicking city will
+        sort all places by city. Clicking by Zip will sort all polling places by
+        zip code. Finally, clicking ballot will sort places by number of ballots.
+      </p>
+      <h2 id="toolInfo"><a href="#electionSim" title="Go to election simulator"
+      class="w3-bar-item w3-button w3-hover-white">Vote Count Simulator</a></h2>
+      <p>The Voting Count Simulator is a resource that is publically provided
+        by ncase and company. This resource allows you to play arounf and
+        illustrate how a candidate wins an election over other candidates.
+        As you move the different shapes around, you will find that their
+        respective colors will cover different areas of the square. The area
+        covered by colors simulates how many votes a candidate has. You will be
+        able to see a numerical representation of this at the bottom. This will
+        illustrate that the candidate who has the most color, or most votes, will
+        win.
+      </p>
+      <h2 id="bubbleInfo"><a href="#sim-fill" title="Go to bubble simulator"
+      class="w3-bar-item w3-button w3-hover-white">Ballot Bubble Simulator</a></h2>
+      <p>The Ballot Bubble Simulator is meant to practice fillin in the bubbles
+        that you will find when voting. As you hold your screen over the box,
+        you will see a pencil appear. You can hold down the mouse and drag
+        through the box to fill in the inner circle. If you fill in correctly,
+        the box will turn green. If you overfill or underfill, the box will turn
+        red. You can reset the box by pressing the reset button located to the
+        right of the box.
+      </p>
+    <div id="contributors">
+      <h1 class="sectionName"><b>Page Contributors.</b></h1>
+      <hr class="sectionDivider">
+      <h2><a href="https://www.linkedin.com/in/joshua-may-5a213712b/">Josh May</a></h2>
+        <img src="img/josh.png" alt="Josh with his kids">
+        <p>I had a great time working on this project and excercising skills
+          learned in web development this semester. I am looking forward to
+          graduating in the Spring of 2020 and hope to make a career with and
+          continually build upon the things I have learned at the University of
+          Maryland. Coding and development is something I have come to really
+          enjoy. I would love working in teams, and really enjoyed seeing what
+          came together for us in this project. I hope that anyone viewing the
+          page pays close attention to the navigation and would love to see
+          someone use parts of our project for functional tools or graphic
+          displays. It is an honor to have anyone look at the work I have been a
+          part of. <a href="https://github.com/joshwmay">Please check out my
+          GitHub</a> and
+        <a href="https://www.linkedin.com/in/joshua-may-5a213712b/">LinkedIn.</a>
+        to see more work I've done. Or check out <a href="https://joshwmay.github.io//public/index.html">
+          my portfolio</a>
+      </p>
+      <h2>Lorraine Siochi</h2>
+        <p>~~~~</p>
+      <h2>Ayesha Raza</h2>
+        <p>It was an amazing experience working in a group environment in this project.
+            I was able to help resolve group issues through research and communication.
+            Also, I was able to apply the concept I have learned in the class and
+            was able to build a working website to resolve the information problem.
+            I worked on writing the reports, presentation, and overall design of the website
+            using my skills learned in the class using HTML and CSS. There were times where
+            we were not sure to integrate some of the concepts into our project.
+            For instance, playing with iframes was a struggle as it would look different in both
+            desktop and mobile versions. However, working as a group helped us accomplish our
+            goals. We as a team were able to create a website to help prepare voters with general
+            information and digital ballots that are more informative and helpful in assisting the
+            preparation of users with limited accessibility intending to vote. </br>
+            <a href="https://www.linkedin.com/in/ayesha-raza/"> Click here to Check My LinkedIn! </a> </br>
+            <a href="https://github.com/razaayesha336"> Click here to Check My GitHub! </a>
+           </p>
+      <h2>Tony Persaud</h2>
+        <p>This was an amazing project to work on. I truly enjoyed the learning moments that came
+          with working on a large, hands-on project such as this in a group fashion. While it was daunting
+          at times, it was very rewarding, being able to learn from my peers at this accelerated pace. At the
+          beginning of this semester, I did not have any experience with HTML, CSS, or JS. The nature
+          of this project has given me confidence to actively pursue projects such as this for future endeavors.
+          While our successes taught me a lot during this project, I learned a lot from the failures we endured.
+          I gained experience in diagnosing where issues are, through massive amounts of code. Additionally, I
+          discovered resources that I will undoubtedly use for the rest of my career.
+        </p>
+      <h2>Tamia Green</h2>
+        <p>~~~~</p>
+    </div>
+    <div id="references">
+      <h1 class="sectionName"><b>References.</b></h1>
+      <hr class="sectionDivider">
+      <p><b>1)</b> GitHub user ncase et al. for dynamic election simulator</p>
+        <a href="https://github.com/ncase/ballot">View their work here</a>
+        <a href="https://ncase.me/ballot/">or here</a>
+      <p><b>2)</b> YouTube account Dev Ed for teaching us how to build an interactive
+          drawing tool<p>
+        <a href="https://www.youtube.com/watch?v=3GqUM4mEYKA">Watch the video here</a>
+      <p><b>3)</b> Table searching and sorting achieved through a variety of methods
+          learned in lectures, labs, or found in resources including
+          <a href="https://www.w3schools.com/">w3schools</a>,
+          <a href="https://stackoverflow.com/">stackoverflow</a>,
+          <a href="https://youtube.com/"> YouTube</a>, and google.
+      <p><b>4)</b> <a href="https://www.princegeorgescountymd.gov/1691/Voter-Information">
+          Prince George's County Voter Information Page</a> contains the ballot
+          data used in this site along with a bevvy of other helpful information
+         <p><b>5) A sincere thank you to our professor, without whom we would not have managed the completion of this site.</b></p>
+    </div>
+    </div>
+  </div>
   </body>
 </html>
